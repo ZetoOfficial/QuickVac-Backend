@@ -12,8 +12,5 @@ RUN pip install -r requirements.txt --no-cache-dir
 
 COPY . .
 
-# COPY docker/quick_vac/entrypoint.sh /
-# ENTRYPOINT ["/entrypoint.sh"]
-
 EXPOSE 80
-CMD uvicorn main:app --app-dir=src --host=0.0.0.0 --port=80 --proxy-headers
+CMD ["uvicorn", "app.service:app", "--host", "0.0.0.0", "--port", "80", "--proxy-headers"]
