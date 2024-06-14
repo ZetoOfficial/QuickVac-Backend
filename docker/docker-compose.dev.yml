@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: quick_vac
+      POSTGRES_PASSWORD: quick_vac
+      POSTGRES_DB: quick_vac
+    networks:
+      - backend
+
+  api:
+    build:
+      context: ../
+      dockerfile: ./docker/quick_vac/Dockerfile
+    command: bash -c "pip install -r requirements.txt && uvicorn main:app --reload --app-dir=src --proxy-headers --host=0.0.0.0 --port=8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - "..:/opt/quick_vac"
+    environment:
+      APP_ENV: development
+      DATABASE_DSN: postgresql://quick_vac:quick_vac@db:5432/quick_vac
+    networks:
+      - backend
+
+volumes:
+  storage:
+
+
+networks:
+  backend:
