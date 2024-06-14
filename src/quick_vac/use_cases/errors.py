@@ -1,2 +1,0 @@
-class VacancyNotFound(Exception):
-    pass
