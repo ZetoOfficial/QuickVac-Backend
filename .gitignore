@@ -1,1 +1,14 @@
+# Ignore Python bytecode files
+*.pyc
+__pycache__
+
+# Ignore virtual environments
 .venv
+.env
+venv
+
+.idea
+.vscode
+env
+
+/static
