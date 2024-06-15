@@ -5,15 +5,14 @@ load_dotenv()
 
 
 class Settings(BaseSettings):
-    app_endpoint: str = "/api"
-    app_environment: str = "development"
-    app_origins: str = "*"
-    database_dsn: str = "postgresql://quick_vac:quick_vac@localhost:5432/quick_vac"
-    async_database_dsn: str = "postgresql+asyncpg://quick_vac:quick_vac@localhost:5432/quick_vac"
+    app_endpoint: str
+    app_environment: str
+    app_origins: str
+    database_dsn: str
+    async_database_dsn: str
 
     class Config:
         case_sensitive = False
-        env_file = ".env"
 
 
 settings = Settings()
