@@ -6,7 +6,7 @@ from sqlalchemy.orm import joinedload
 
 from app.database import SessionLocal
 from app.models.vacancy import Vacancy as ORMVacancy
-from app.schemas import InputVacancyDTO, UpdateVacancyDTO, VacancyDTO
+from app.schemas import InputVacancyDTO, ShortVacancyDTO, UpdateVacancyDTO, VacancyDTO
 
 from .errors import NotFoundException
 
@@ -22,7 +22,7 @@ class CRUDVacancy:
             return await CRUDVacancy.get_vacancy_by_id(orm_obj.id)
 
     @staticmethod
-    async def get_all_vacancies(limit: int, offset: int) -> list[VacancyDTO]:
+    async def get_all_vacancies(limit: int, offset: int) -> list[ShortVacancyDTO]:
         async with SessionLocal() as session:
             session: AsyncSession
             query = select(ORMVacancy).options(joinedload(ORMVacancy.company), joinedload(ORMVacancy.skills))
@@ -31,7 +31,7 @@ class CRUDVacancy:
             if offset:
                 query = query.offset(offset)
             result = await session.execute(query)
-            vacancies = result.unique().scalars().all()  # Используем unique() метод
+            vacancies = result.unique().scalars().all()
             return vacancies
 
     @staticmethod
@@ -44,7 +44,7 @@ class CRUDVacancy:
                 .options(joinedload(ORMVacancy.company), joinedload(ORMVacancy.skills))
             )
             result = await session.execute(query)
-            vacancy = result.unique().scalar_one_or_none()  # Используем unique() метод
+            vacancy = result.unique().scalar_one_or_none()
             if vacancy is None:
                 raise NotFoundException(f"Vacancy with id {_id} not found")
             return vacancy

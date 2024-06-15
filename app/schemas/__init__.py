@@ -8,10 +8,11 @@ from .enums import (
     WorkType,
 )
 from .skill import InputSkillDTO, SkillDTO
-from .vacancy import InputVacancyDTO, UpdateVacancyDTO, VacancyDTO
+from .vacancy import InputVacancyDTO, ShortVacancyDTO, UpdateVacancyDTO, VacancyDTO
 
 __all__ = [
     "CompanyDTO",
+    "ShortVacancyDTO",
     "InputCompanyDTO",
     "SkillDTO",
     "UpdateVacancyDTO",

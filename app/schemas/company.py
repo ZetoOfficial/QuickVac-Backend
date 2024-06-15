@@ -10,7 +10,7 @@ class InputCompanyDTO(BaseModel):
     website: Optional[str] = Field(None, description="Вебсайт компании")
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "name": "Example Company",
                 "address": "123 Main St, Anytown, USA",
@@ -26,7 +26,7 @@ class CompanyDTO(BaseModel):
     website: Optional[str] = Field(None, description="Вебсайт компании")
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                 "name": "Example Company",

@@ -13,3 +13,4 @@ class Skill(Base):
     name = Column(String(255), nullable=False)
 
     vacancies = relationship('VacancySkill', back_populates='skill')
+    candidates = relationship('CandidateSkill', back_populates='skill')

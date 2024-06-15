@@ -2,7 +2,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, HTTPException
 
-from app.schemas import InputVacancyDTO, UpdateVacancyDTO, VacancyDTO
+from app.schemas import InputVacancyDTO, ShortVacancyDTO, UpdateVacancyDTO, VacancyDTO
 from app.services import VacancyService
 
 vacancy_router = APIRouter()
@@ -17,7 +17,7 @@ async def create_vacancy(dto: InputVacancyDTO):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@vacancy_router.get("/vacancies", response_model=list[VacancyDTO])
+@vacancy_router.get("/vacancies", response_model=list[ShortVacancyDTO])
 async def get_all_vacancies(limit: int = 100, offset: int = 0):
     """Get all vacancies from the database"""
     try:

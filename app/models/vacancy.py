@@ -1,4 +1,3 @@
-import enum
 import uuid
 
 from sqlalchemy import DECIMAL, Column, Date, Enum, ForeignKey, String, Text
@@ -8,52 +7,14 @@ from sqlalchemy.sql import func
 
 from app.database import Base
 
-
-class VacancyStatus(str, enum.Enum):
-    open = 'open'
-    closed = 'closed'
-    pending = 'pending'
-
-
-class Direction(str, enum.Enum):
-    development = 'Разработка'
-    sales = 'Продажи'
-    customer_service = 'Клиентский сервис'
-    marketing = 'Маркетинг'
-    hr = 'HR'
-    product_management = 'Управление продуктом'
-    business_development = 'Развитие бизнеса'
-    data_analytics = 'Аналитика данных'
-
-
-class WorkType(str, enum.Enum):
-    full_time = 'Полный рабочий день'
-    part_time = 'Частичная занятость'
-    contract = 'Контракт'
-    freelance = 'Фриланс'
-    internship = 'Стажировка'
-
-
-class ExperienceLevel(str, enum.Enum):
-    junior = 'Junior'
-    middle = 'Middle'
-    senior = 'Senior'
-    lead = 'Lead'
-
-
-class EmploymentType(str, enum.Enum):
-    permanent = 'Постоянная'
-    temporary = 'Временная'
-    contract = 'Контракт'
-    internship = 'Стажировка'
-
-
-class EducationLevel(str, enum.Enum):
-    high_school = 'Средняя школа'
-    bachelor = 'Бакалавр'
-    master = 'Магистр'
-    phd = 'Доктор наук'
-    no_degree = 'Без образования'
+from .enums import (
+    Direction,
+    EducationLevel,
+    EmploymentType,
+    ExperienceLevel,
+    VacancyStatus,
+    WorkType,
+)
 
 
 class Vacancy(Base):
@@ -76,3 +37,13 @@ class Vacancy(Base):
 
     company = relationship('Company', back_populates='vacancies')
     skills = relationship('VacancySkill', back_populates='vacancy')
+    applications = relationship('Application', back_populates='vacancy')
+
+
+class VacancySkill(Base):
+    __tablename__ = 'vacancy_skills'
+    vacancy_id = Column(UUID(as_uuid=True), ForeignKey('vacancies.id'), primary_key=True)
+    skill_id = Column(UUID(as_uuid=True), ForeignKey('skills.id'), primary_key=True)
+
+    vacancy = relationship('Vacancy', back_populates='skills')
+    skill = relationship('Skill', back_populates='vacancies')

@@ -4,13 +4,24 @@ from alembic import context
 from sqlalchemy import engine_from_config, pool
 
 from app.database import Base
-from app.models import Company, Skill, Vacancy, VacancySkill
-from app.models.vacancy import (
+from app.models import (
+    Application,
+    Candidate,
+    CandidateSkill,
+    Company,
+    Interview,
+    Note,
+    Skill,
+    User,
+    Vacancy,
+    VacancySkill,
+)
+from app.models.enums import (
     Direction,
     EducationLevel,
     EmploymentType,
     ExperienceLevel,
-    Vacancy,
+    VacancyStatus,
     WorkType,
 )
 from settings import settings
